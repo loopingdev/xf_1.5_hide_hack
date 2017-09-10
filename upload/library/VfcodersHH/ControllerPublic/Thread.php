@@ -43,11 +43,14 @@ class VfcodersHH_ControllerPublic_Thread extends XFCP_VfcodersHH_ControllerPubli
 		  
 		  if (isset($response->params['posts'], $response->params['forum']) AND count($response->params['posts']))
 		  {			  
+
+
+
 		      $parser = new VfcodersHH_Helper_Parse();
 		      foreach ($response->params['posts'] AS &$post)
 			  {
 			       $post['message'] = $parser->parse_hidetags($post['message'], $response->params['forum']['node_id'], $post['thread_id'], 
-				                      $post['user_id'], $post['post_id'], $post['like_users']);
+				                      $post['user_id'], $post['post_id'], $this->_getAllLikes($post['post_id']));
 			  }
 		  }
 		  return $response;
@@ -60,14 +63,14 @@ class VfcodersHH_ControllerPublic_Thread extends XFCP_VfcodersHH_ControllerPubli
 		     $permission = $this->_getHHPermissionModel();		 
 		     $permission->getTagPermission($response->params['thread']['node_id'], $response->params['forum'], $errorPhraseKey);
 		 }
-		 
 		 if (isset($response->params['posts'], $response->params['forum']) AND count($response->params['posts']))
 		 {			  
 		      $parser = new VfcodersHH_Helper_Parse();
 		      foreach ($response->params['posts'] AS &$post)
 			  {
+
 			       $post['message'] = $parser->parse_hidetags($post['message'], $response->params['forum']['node_id'], $post['thread_id'], 
-				                      $post['user_id'], $post['post_id'], $post['like_users']);			
+				                      $post['user_id'], $post['post_id'], $this->_getAllLikes($post['post_id']));
 			  }
 		 }
 		 
@@ -93,14 +96,13 @@ class VfcodersHH_ControllerPublic_Thread extends XFCP_VfcodersHH_ControllerPubli
 		     $permission = $this->_getHHPermissionModel();		 
 		     $permission->getTagPermission($response->params['thread']['node_id'], $response->params['forum'], $errorPhraseKey);
 		 }
-		 
 		 if (isset($response->params['posts'], $response->params['forum']) AND count($response->params['posts']))
 		 {			  
 		      $parser = new VfcodersHH_Helper_Parse();
 		      foreach ($response->params['posts'] AS &$post)
 			  {
 			       $post['message'] = $parser->parse_hidetags($post['message'], $response->params['forum']['node_id'], $post['thread_id'], 
-				                      $post['user_id'], $post['post_id'], $post['like_users']);
+				                      $post['user_id'], $post['post_id'], $this->_getAllLikes($post['post_id']));
 			  }
 		 }
 		 
@@ -119,7 +121,6 @@ class VfcodersHH_ControllerPublic_Thread extends XFCP_VfcodersHH_ControllerPubli
 		     $permission = $this->_getHHPermissionModel();		 
 		     $permission->getTagPermission($response->params['thread']['node_id'], $response->params['forum'], $errorPhraseKey);
 		 }
-		 
 		 if (isset($response->params['post'], $response->params['forum']))
 		 {			  
 		      $parser = new VfcodersHH_Helper_Parse();
@@ -128,7 +129,7 @@ class VfcodersHH_ControllerPublic_Thread extends XFCP_VfcodersHH_ControllerPubli
 			       $post =& $response->params['post'];
 			       $post['message'] = $parser->parse_hidetags($post['message'], $response->params['forum']['node_id'], 
 				   $post['thread_id'], $post['user_id'], $post['post_id'], 
-				   $post['like_users']);
+				   $this->_getAllLikes($post['post_id']));
 			  }
 		 }
 
@@ -147,7 +148,6 @@ class VfcodersHH_ControllerPublic_Thread extends XFCP_VfcodersHH_ControllerPubli
 		     $permission = $this->_getHHPermissionModel();		 
 		     $permission->getTagPermission($response->params['forum']['node_id'], $response->params['forum'], $errorPhraseKey);
 		   }
-
 		   $parser = new VfcodersHH_Helper_Parse();
 		   $response->params['message'] = $parser->parse_hidetags($response->params['message'], $response->params['forum']['node_id'], 
 				   $response->params['thread']['thread_id'], XenForo_Visitor::getUserId());
@@ -177,7 +177,7 @@ class VfcodersHH_ControllerPublic_Thread extends XFCP_VfcodersHH_ControllerPubli
 		      foreach ($response->params['posts'] AS &$post)
 			  {
 			       $post['message'] = $parser->parse_hidetags($post['message'], $response->params['forum']['node_id'], $post['thread_id'], 
-				                      $post['user_id'], $post['post_id'], $post['like_users']);
+				                      $post['user_id'], $post['post_id'], $this->_getAllLikes($post['post_id']));
 			  }
 		 }
 		 
@@ -209,4 +209,11 @@ class VfcodersHH_ControllerPublic_Thread extends XFCP_VfcodersHH_ControllerPubli
 	{
 		return $this->getModelFromCache('VfcodersHH_Model_Permission');
 	}
+
+	protected function _getAllLikes($postid)
+	{
+	        $allLikedUsers = $this->getModelFromCache('XenForo_Model_Like')->getContentLikes('post', $postid );
+	        return $allLikedUsers;
+	}
+
 }
