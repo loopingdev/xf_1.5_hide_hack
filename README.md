@@ -8,7 +8,7 @@ The original work can be found here: https://xenforo.com/community/resources/aay
 - fixed the problem with being only able to see links in hide-thanks when the user is in the last 5 ones that liked the post
 - changed the behaviour how the addon checks if the user has liked a post
 
-##Description:
+## Description:
 This addon gives users the ability to hide their content using BbCode.
 
 * Six different BBCode to Hide Contents.
@@ -33,7 +33,7 @@ This addon gives users the ability to hide their content using BbCode.
 ** Meta Description
 ** Quote
 
-##Installation:
+## Installation:
 - Extract attached zip and upload the contents of the "upload" to your XF root.
 - Install from uploaded file: addon-vfcoders_hide_hack.xml
 - Set options for the hide hack in administration control panel.
