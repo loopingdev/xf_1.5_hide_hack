@@ -70,16 +70,17 @@ class VfcodersHH_Helper_Parse
 		   		
       }
 	  
-	  public function parse_hidetags($message = '', $node_id = 0, $thread_id = 0, $user_id = 0, $post_id = 0, $likeusers = null)
+	  public function parse_hidetags($message = '', $node_id = 0, $thread_id = 0, $user_id = 0, $post_id = 0, $likeusers = 0)
 	  {
-			$this->_post = array('node_id' => $node_id, 'thread_id' => $thread_id, 'user_id' => $user_id, 'post_id' => $post_id, 
-			               'like_users' => isset($likeusers) ? @unserialize($likeusers) : '');
-						   
+			$this->_post = array('node_id' => $node_id, 'thread_id' => $thread_id, 'user_id' => $user_id, 'post_id' => $post_id,
+			               'like_users' => $likeusers);
+
 			$this->_canbypass = $this->canByPassHideTags();
 			
 			// get visitor info
 		    $this->_visitor = XenForo_Visitor::getInstance();
-			
+
+
 			if (count($this->_tags))
 			{
 			     foreach ($this->_tags AS $tagName => $tag)
@@ -102,7 +103,7 @@ class VfcodersHH_Helper_Parse
 			
 			return $message;
 	  }
-	  	  
+
 	  public function renderHide(array $matches)
 	  {  
 	        if (XenForo_Application::get('options')->vfchh_bbcode_hide)
@@ -339,30 +340,14 @@ class VfcodersHH_Helper_Parse
 	   *
 	   * @return array|false
 	   */
-	  public function hasLikedThisPost($postId = 0, $userId = 0, $cache = true)
+	  public function hasLikedThisPost($postId = 0, $userId = 0)
 	  {
-		  if (isset($this->_likedpost[$userId][$postId]) AND $cache)
-		  return $this->_likedpost[$userId][$postId];
-		 
-		  if (is_array($this->_post['like_users']) AND count($this->_post['like_users']))
-		  {
-		       foreach ($this->_post['like_users'] AS $user)
-			   {
-			        if ($userId == $user['user_id'])
-					return ($this->_likedpost[$userId][$postId] = true);
-			   }
-		  }
-		  elseif ($this->_post['like_users'] == '')
-		  {
-		       $this->_likedpost[$userId][$postId] = is_array($this->_getDb()->fetchRow('
-			   SELECT like_id
-			   FROM xf_liked_content
-			   WHERE content_type = \'post\' AND like_user_id = ? AND content_id = ?
-		       ', array($userId, $postId))) ? true : false;
-			   return $this->_likedpost[$userId][$postId];
-		  }
-		  
-		  return ($this->_likedpost[$userId][$postId] = false);
+        var_dump($this->_post['like_users']);
+
+	      if (isset($this->_post['like_users']) && $this->_post['like_users'] == true)
+	          return true;
+	      else
+	          return false;
 	  }
 	  
 	  /**
