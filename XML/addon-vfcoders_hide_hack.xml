@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="vfcoders_hide_hack" title="vFcoders - Hide Hack" version_string="1.5.3" version_id="6" url="http://www.vfcoders.com" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="editor_setup" execute_order="10" callback_class="VfcodersHH_ViewPublic_Helper_Editor" callback_method="setUpEditorOptions" active="1" hint="" description=""/>
+    <listener event_id="load_class_bb_code" execute_order="10" callback_class="VfcodersHH_Listener_LoadClass" callback_method="BbCode" active="1" hint="" description=""/>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="VfcodersHH_Listener_LoadClass" callback_method="Controller" active="1" hint="" description=""/>
+    <listener event_id="load_class_mail" execute_order="10" callback_class="VfcodersHH_Listener_LoadClass" callback_method="Mail" active="1" hint="" description=""/>
+    <listener event_id="load_class_search_data" execute_order="10" callback_class="VfcodersHH_Listener_LoadClass" callback_method="SearchData" active="1" hint="" description=""/>
+    <listener event_id="template_create" execute_order="10" callback_class="VfcodersHH_Listener_TemplateCreate" callback_method="preloader" active="1" hint="" description="Preload Require Templates"/>
+    <listener event_id="template_hook" execute_order="10" callback_class="VfcodersHH_Listener_Hook" callback_method="add_buttons" active="1" hint="" description=""/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups>
+    <group group_id="vfcoders_hide_hack" display_order="1000" debug_only="0"/>
+    <option option_id="vfchh_bbcode_hide" edit_format="radio" data_type="boolean" can_backup="1">
+      <default_value>1</default_value>
+      <edit_format_params>1=Yes
+0=No</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="vfcoders_hide_hack" display_order="1"/>
+    </option>
+    <option option_id="vfchh_bbcode_hide_map" edit_format="radio" data_type="string" can_backup="1">
+      <default_value>hr</default_value>
+      <edit_format_params>hr=HIDE-REPLY (default)
+ht=HIDE-THANKS
+hrt=HIDE-REPLY-THANKS
+hp=HIDE-POSTS
+stg=SHOWTOGROUPS</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="vfcoders_hide_hack" display_order="10"/>
+    </option>
+    <option option_id="vfchh_bbcode_hp" edit_format="radio" data_type="boolean" can_backup="1">
+      <default_value>1</default_value>
+      <edit_format_params>1=Yes
+0=No</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="vfcoders_hide_hack" display_order="210"/>
+    </option>
+    <option option_id="vfchh_bbcode_hp_min_post" edit_format="spinbox" data_type="unsigned_integer" can_backup="1">
+      <default_value>10</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="vfcoders_hide_hack" display_order="220"/>
+    </option>
+    <option option_id="vfchh_bbcode_hr" edit_format="radio" data_type="boolean" can_backup="1">
+      <default_value>1</default_value>
+      <edit_format_params>1=Yes
+0=No</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="vfcoders_hide_hack" display_order="110"/>
+    </option>
+    <option option_id="vfchh_bbcode_hrt" edit_format="radio" data_type="boolean" can_backup="1">
+      <default_value>1</default_value>
+      <edit_format_params>1=Yes
+0=No</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="vfcoders_hide_hack" display_order="420"/>
+    </option>
+    <option option_id="vfchh_bbcode_ht" edit_format="radio" data_type="boolean" can_backup="1">
+      <default_value>1</default_value>
+      <edit_format_params>1=Yes
+0=No</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="vfcoders_hide_hack" display_order="320"/>
+    </option>
+    <option option_id="vfchh_bbcode_stg" edit_format="radio" data_type="boolean" can_backup="1">
+      <default_value>1</default_value>
+      <edit_format_params>1=Yes
+0=No</edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="vfcoders_hide_hack" display_order="500"/>
+    </option>
+    <option option_id="vfchh_bbcode_stg_default_groups" edit_format="callback" data_type="array" can_backup="1">
+      <default_value>a:3:{i:0;i:2;i:1;i:3;i:2;i:4;}</default_value>
+      <edit_format_params>VfcodersHH_Option_Render::renderUserGroups</edit_format_params>
+      <sub_options>*</sub_options>
+      <relation group_id="vfcoders_hide_hack" display_order="510"/>
+    </option>
+  </optiongroups>
+  <permissions>
+    <permission_groups/>
+    <permissions>
+      <permission permission_group_id="forum" permission_id="vfchh_perm_bypass" permission_type="flag" default_value="unset" interface_group_id="vfchhPermissions" display_order="8"/>
+      <permission permission_group_id="forum" permission_id="vfchh_perm_hide" permission_type="flag" default_value="unset" interface_group_id="vfchhPermissions" display_order="1"/>
+      <permission permission_group_id="forum" permission_id="vfchh_perm_hp" permission_type="flag" default_value="unset" interface_group_id="vfchhPermissions" display_order="2"/>
+      <permission permission_group_id="forum" permission_id="vfchh_perm_hr" permission_type="flag" default_value="unset" interface_group_id="vfchhPermissions" display_order="3"/>
+      <permission permission_group_id="forum" permission_id="vfchh_perm_hrt" permission_type="flag" default_value="unset" interface_group_id="vfchhPermissions" display_order="5"/>
+      <permission permission_group_id="forum" permission_id="vfchh_perm_ht" permission_type="flag" default_value="unset" interface_group_id="vfchhPermissions" display_order="4"/>
+      <permission permission_group_id="forum" permission_id="vfchh_perm_stg" permission_type="flag" default_value="unset" interface_group_id="vfchhPermissions" display_order="6"/>
+    </permissions>
+    <interface_groups>
+      <interface_group interface_group_id="vfchhPermissions" display_order="1"/>
+    </interface_groups>
+  </permissions>
+  <phrases>
+    <phrase title="option_group_vfcoders_hide_hack" version_id="2" version_string="1.4.2"><![CDATA[[vFCoders] Hide Hack v1]]></phrase>
+    <phrase title="option_group_vfcoders_hide_hack_description" version_id="1" version_string="Beta 1"><![CDATA[]]></phrase>
+    <phrase title="option_vfchh_bbcode_hide" version_id="1" version_string="Beta 1"><![CDATA[[HIDE] Tag]]></phrase>
+    <phrase title="option_vfchh_bbcode_hide_explain" version_id="1" version_string="Beta 1"><![CDATA[If not, it will be neither parsed nor shown on toolbar.]]></phrase>
+    <phrase title="option_vfchh_bbcode_hide_map" version_id="1" version_string="Beta 1"><![CDATA[Which tag should [HIDE] code be mapped to?]]></phrase>
+    <phrase title="option_vfchh_bbcode_hide_map_explain" version_id="1" version_string="Beta 1"><![CDATA[Select a tag which will be mapped to [HIDE] code.]]></phrase>
+    <phrase title="option_vfchh_bbcode_hp" version_id="1" version_string="Beta 1"><![CDATA[[HIDE-POSTS] Tag]]></phrase>
+    <phrase title="option_vfchh_bbcode_hp_explain" version_id="1" version_string="Beta 1"><![CDATA[Select yes to enable [HIDE-POSTS] tag in your forum. If not, it will be neither parsed nor shown on toolbar.]]></phrase>
+    <phrase title="option_vfchh_bbcode_hp_min_post" version_id="1" version_string="Beta 1"><![CDATA[Minimum Post Count Required To View [HIDE-POSTS] Tag Content]]></phrase>
+    <phrase title="option_vfchh_bbcode_hp_min_post_explain" version_id="1" version_string="Beta 1"><![CDATA[Default number of posts user must have to see HIDE-POSTS tag content (if not specified by the poster)]]></phrase>
+    <phrase title="option_vfchh_bbcode_hr" version_id="1" version_string="Beta 1"><![CDATA[[HIDE-REPLY] Tag]]></phrase>
+    <phrase title="option_vfchh_bbcode_hrt" version_id="1" version_string="Beta 1"><![CDATA[[HIDE-REPLY-THANKS] Tag]]></phrase>
+    <phrase title="option_vfchh_bbcode_hrt_explain" version_id="1" version_string="Beta 1"><![CDATA[Select yes to enable [HIDE-REPLY-THANKS] Tag. If not, it will be neither parsed nor shown on toolbar.]]></phrase>
+    <phrase title="option_vfchh_bbcode_hr_explain" version_id="1" version_string="Beta 1"><![CDATA[Select yes to enable [HIDE-REPLY] tag in your forum. If not, it will be neither parsed nor shown on toolbar.]]></phrase>
+    <phrase title="option_vfchh_bbcode_ht" version_id="1" version_string="Beta 1"><![CDATA[[HIDE-THANKS] Tag]]></phrase>
+    <phrase title="option_vfchh_bbcode_ht_explain" version_id="1" version_string="Beta 1"><![CDATA[Select yes to enable [HIDE-THANKS] Tag.  The tag hides content from people until they press the <b>like</b> button for the post.]]></phrase>
+    <phrase title="option_vfchh_bbcode_stg" version_id="1" version_string="Beta 1"><![CDATA[[SHOWTOGROUPS] Tag]]></phrase>
+    <phrase title="option_vfchh_bbcode_stg_default_groups" version_id="1" version_string="Beta 1"><![CDATA[Default Usergroups]]></phrase>
+    <phrase title="option_vfchh_bbcode_stg_default_groups_explain" version_id="1" version_string="Beta 1"><![CDATA[Select default usergroups for SHOWTOGROUPS tag (when not specified by the poster).]]></phrase>
+    <phrase title="option_vfchh_bbcode_stg_explain" version_id="1" version_string="Beta 1"><![CDATA[Select yes to enable [SHOWTOGROUPS] Tag. If not, it will be neither parsed nor shown on toolbar.]]></phrase>
+    <phrase title="permission_forum_vfchh_perm_bypass" version_id="1" version_string="Beta 1"><![CDATA[Can Always See Hidden Content]]></phrase>
+    <phrase title="permission_forum_vfchh_perm_hide" version_id="1" version_string="Beta 1"><![CDATA[Allow [HIDE] Tag]]></phrase>
+    <phrase title="permission_forum_vfchh_perm_hp" version_id="1" version_string="Beta 1"><![CDATA[Allow [HIDE-POSTS] Tag]]></phrase>
+    <phrase title="permission_forum_vfchh_perm_hr" version_id="1" version_string="Beta 1"><![CDATA[Allow [HIDE-REPLY] Tag]]></phrase>
+    <phrase title="permission_forum_vfchh_perm_hrt" version_id="1" version_string="Beta 1"><![CDATA[Allow [HIDE-REPLY-THANKS] Tag]]></phrase>
+    <phrase title="permission_forum_vfchh_perm_ht" version_id="1" version_string="Beta 1"><![CDATA[Allow [HIDE-THANKS] Tag]]></phrase>
+    <phrase title="permission_forum_vfchh_perm_stg" version_id="1" version_string="Beta 1"><![CDATA[Allow [SHOWTOGROUPS] Tag]]></phrase>
+    <phrase title="permission_interface_vfchhPermissions" version_id="1" version_string="Beta 1"><![CDATA[vFCoders - Hide Hack Permissions]]></phrase>
+    <phrase title="post_count" version_id="1" version_string="1.3"><![CDATA[Post Count]]></phrase>
+    <phrase title="select_usergroups" version_id="1" version_string="1.3"><![CDATA[Select Usergroups]]></phrase>
+    <phrase title="style_property_hiddenContentLighter_description_master" version_id="1" version_string="Beta 1"><![CDATA[]]></phrase>
+    <phrase title="style_property_hiddenContentLighter_master" version_id="1" version_string="Beta 1"><![CDATA[Hidden Content Lighter]]></phrase>
+    <phrase title="style_property_hiddenContentLightest_description_master" version_id="1" version_string="Beta 1"><![CDATA[]]></phrase>
+    <phrase title="style_property_hiddenContentLightest_master" version_id="1" version_string="Beta 1"><![CDATA[Hidden Content Lightest]]></phrase>
+    <phrase title="style_property_hiddenContentLight_description_master" version_id="1" version_string="Beta 1"><![CDATA[]]></phrase>
+    <phrase title="style_property_hiddenContentLight_master" version_id="1" version_string="Beta 1"><![CDATA[Hidden Content Light]]></phrase>
+    <phrase title="style_property_unhiddenContentLighter_description_master" version_id="1" version_string="Beta 1"><![CDATA[]]></phrase>
+    <phrase title="style_property_unhiddenContentLighter_master" version_id="1" version_string="Beta 1"><![CDATA[Unhidden Content Lighter]]></phrase>
+    <phrase title="style_property_unhiddenContentLightest_description_master" version_id="1" version_string="Beta 1"><![CDATA[]]></phrase>
+    <phrase title="style_property_unhiddenContentLightest_master" version_id="1" version_string="Beta 1"><![CDATA[Unhidden Content Lightest]]></phrase>
+    <phrase title="style_property_unhiddenContentLight_description_master" version_id="1" version_string="Beta 1"><![CDATA[]]></phrase>
+    <phrase title="style_property_unhiddenContentLight_master" version_id="1" version_string="Beta 1"><![CDATA[Unhidden Content Light]]></phrase>
+    <phrase title="vfchh_denied" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[You do not have sufficient rights to see the hidden data contained here.]]></phrase>
+    <phrase title="vfchh_denied_hp_x" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[**Hidden Content: To see this hidden content your post count must be {count} or greater.**]]></phrase>
+    <phrase title="vfchh_denied_hr" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[You must reply before you can see the hidden data contained here.]]></phrase>
+    <phrase title="vfchh_denied_hrt" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[You must either reply or click 'Like' to see the hidden information contained here.]]></phrase>
+    <phrase title="vfchh_denied_ht" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[**Hidden Content:  You must click 'Like' before you can see the hidden data contained here.**]]></phrase>
+    <phrase title="vfchh_denied_stg" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[**Hidden Content: Content of this hidden block can only be seen by members of (usergroups: {groups}).**]]></phrase>
+    <phrase title="vfchh_hidden_content" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[Hidden Content]]></phrase>
+    <phrase title="vfchh_hide" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[HIDE]]></phrase>
+    <phrase title="vfchh_hide_content" version_id="1" version_string="Beta 1"><![CDATA[Hide Content]]></phrase>
+    <phrase title="vfchh_hposts" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[HIDE-POSTS]]></phrase>
+    <phrase title="vfchh_hreply" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[HIDE-REPLY]]></phrase>
+    <phrase title="vfchh_hrt" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[HIDE-REPLY-THANKS]]></phrase>
+    <phrase title="vfchh_hthanks" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[HIDE-THANKS]]></phrase>
+    <phrase title="vfchh_min_post_count_to_see_x_tag_content" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[Number of posts user must have to see your [{tag}]  tag content.]]></phrase>
+    <phrase title="vfchh_preview_hidden_content" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[[HIDDEN CONTENT]]]></phrase>
+    <phrase title="vfchh_showtogroups" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[SHOWTOGROUPS]]></phrase>
+    <phrase title="vfchh_stg_description" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[Only members of selected usergroups will be able to see content wrap inside this tag.]]></phrase>
+    <phrase title="vfchh_strip_email" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[.:: Hidden Content: Check out the thread to find out whether you can access it! ::.]]></phrase>
+    <phrase title="vfchh_strip_noquote" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[[B]***Hidden content cannot be quoted.***[/B]]]></phrase>
+    <phrase title="vfchh_unhidden_content" global_cache="1" version_id="1" version_string="Beta 1"><![CDATA[UnHidden Content]]></phrase>
+    <phrase title="xfcf_parent_category" version_id="2" version_string="1.4.2"><![CDATA[Parent Category]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties>
+    <property property_name="hiddenContentLighter" property_type="scalar" definition="1" group_name="color" title="Hidden Content Lighter" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="2060" sub_group="Secondary Tone"><![CDATA[#FA9E9E]]></property>
+    <property property_name="hiddenContentLightest" property_type="scalar" definition="1" group_name="color" title="Hidden Content Lightest" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="2070" sub_group="Secondary Tone"><![CDATA[#FDE7E7]]></property>
+    <property property_name="unhiddenContentLighter" property_type="scalar" definition="1" group_name="color" title="Unhidden Content Lighter" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="2080" sub_group="Secondary Tone"><![CDATA[rgb(229, 249, 215)]]></property>
+    <property property_name="unhiddenContentLightest" property_type="scalar" definition="1" group_name="color" title="Unhidden Content Lightest" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="2090" sub_group="Secondary Tone"><![CDATA[rgb(245, 252, 237)]]></property>
+    <property property_name="unhiddenContentLight" property_type="scalar" definition="1" group_name="color" title="Unhidden Content Light" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="2075" sub_group="Secondary Tone"><![CDATA[rgb(209, 244, 195)]]></property>
+    <property property_name="hiddenContentLight" property_type="scalar" definition="1" group_name="color" title="Hidden Content Light" description="" css_components="" scalar_type="color" scalar_parameters="" display_order="2070" sub_group="Secondary Tone"><![CDATA[#F98585]]></property>
+  </style_properties>
+  <templates>
+    <template title="bb_code_tag_vfchh" version_id="1" version_string="Beta 1"><![CDATA[<xen:require css="bb_code.css" />
+<xen:require css="bb_vfchh.css" />
+
+<xen:comment><!-- content is escaped via parser --></xen:comment>
+<div class="bbCodeBlock bbCodeVfcHH {$type}Content">
+	<div class="attribution type">{$title}:</div>
+	<blockquote>{xen:raw $content}</blockquote>
+</div>]]></template>
+    <template title="bb_vfchh.css" version_id="1" version_string="Beta 1"><![CDATA[.UnhiddenContent .attribution
+{
+	@property "UnhiddenContentAttribution";
+	color: {xen:property contentText};
+	background: {xen:property unhiddenContentLighter} url('{xen:property imagePath}/xenforo/gradients/form-button-white-25px.png') repeat-x top;
+	border-bottom: 1px solid {xen:property unhiddenContentLight};
+	@property "/UnhiddenContentAttribution";
+}
+
+.bbCodeVfcHH blockquote
+{
+	@property "bbCodeVfcHHContent";
+	font-style: italic;
+	font-size: 9pt;
+	padding: 10px;
+	border-radius: 4px;
+	@property "/bbCodeVfcHHContent";
+}
+
+.UnhiddenContent
+{
+	@property "UnhiddenContent";
+        background: {xen:property unhiddenContentLightest} url('{xen:property imagePath}/xenforo/gradients/category-23px-light.png') repeat-x top;
+	border-color: {xen:property unhiddenContentLighter};
+	@property "/UnhiddenContent";
+}
+
+.HiddenContent .attribution
+{
+	@property "HiddenContentAttribution";
+	color: {xen:property contentText};
+	background: {xen:property hiddenContentLighter} url('{xen:property imagePath}/xenforo/gradients/form-button-white-25px.png') repeat-x top;
+	border-bottom: 1px solid {xen:property hiddenContentLight};
+	@property "/HiddenContentAttribution";
+}
+
+.HiddenContent
+{
+	@property "HiddenContent";
+        background: {xen:property hiddenContentLightest} url('{xen:property imagePath}/xenforo/gradients/category-23px-light.png') repeat-x top;
+	border-color: {xen:property hiddenContentLighter};
+	@property "/HiddenContent";
+}]]></template>
+    <template title="editor_dialog_hide" version_id="1" version_string="1.4"><![CDATA[<style type="text/css">
+   .stg_checkbox label { margin-right: 10px; }
+   .stg_checkbox span { vertical-align: top; font-size: 12px; }
+</style>
+
+<dl class="ctrlUnit">
+	<xen:if is="{$_input} == 'post'">
+		<dt>{xen:phrase post_count}:</dt>
+		<dd><input type="text" name="redactor_hide_postcount" id="redactor_hide_postcount" class="textCtrl" />
+		    <div class="explain">{$description}</div>
+		</dd>
+	<xen:elseif is="{$_input} == 'stg'" />
+	     <dt>{xen:phrase select_usergroups}:</dt>
+             <dd class="stg_checkbox">
+	           <xen:foreach loop="$usergroups" value="$usergroup">
+                        <label><input type="checkbox" class="stg" name="redactor_hide_stg[]" value="{$usergroup.value}" {$usergroup.selected}> <span>{$usergroup.label}</span></label>
+                   </xen:foreach>
+                <div class="explain">{$description}</div>
+	     </dd>
+	</xen:if>
+</dl>
+
+<dl class="ctrlUnit">
+	<dt>{xen:phrase content}:</dt>
+	<dd><textarea name="redactor_hide_code" id="redactor_hide_code" class="textCtrl" style="height: 100px; resize: none"></textarea></dd>
+</dl>
+
+<dl class="ctrlUnit submitUnit">
+     <input type="hidden" id="vfchh_hidetype" value="{$_input}" />
+
+    <dt></dt>
+    <dd>
+	<input type="button" name="upload" class="redactor_modal_btn button primary" id="redactor_insert_hide_btn" value="{xen:phrase insert}" />
+	<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close button">{xen:phrase cancel}</a>
+    </dd>
+</dl>      ]]></template>
+    <template title="vfchh.css" version_id="1" version_string="1.3"><![CDATA[.redactor_btn_group li a.redactor_btn_hreply {
+	background-image: url('styles/vfchh/hreply.gif') !important;
+	width: 41px;
+	height: 24px;
+}
+
+.redactor_btn_group li a.redactor_btn_hthanks {
+	background-image: url('styles/vfchh/hthanks.gif') !important;
+	width: 41px;
+	height: 24px;
+}
+
+.redactor_btn_group li a.redactor_btn_hrt {
+	background-image: url('styles/vfchh/hrt.gif') !important;
+	width: 29px;
+	height: 24px;
+}
+
+.redactor_btn_group li a.redactor_btn_hposts {
+	background-image: url('styles/vfchh/hposts.gif') !important;
+	width: 58px;
+	height: 24px;
+}
+
+.redactor_btn_group li a.redactor_btn_stg {
+	background-image: url('styles/vfchh/stg.gif') !important;
+	width: 31px;
+	height: 24px;
+}
+
+.redactor_btn_group li a.redactor_btn_hide {
+	background-image: url('styles/vfchh/hide.gif') !important;
+	width: 41px;
+	height: 24px;
+}
+]]></template>
+    <template title="vfchh_bbcode_js" version_id="1" version_string="1.4"><![CDATA[<script type="text/javascript">
+var ActiveHideButtons = [[{xen:raw $activetags}]];
+var htmt = '{xen:raw $htmt}';
+
+if (typeof RELANG === 'undefined')
+{
+	var RELANG = {};
+}
+
+RELANG.vfchh = {
+	hidecontent: "{xen:jsescape {xen:phrase vfchh_hide_content}}",
+	showtogroups: "{xen:jsescape {xen:phrase vfchh_showtogroups}}",
+};
+</script>
+
+]]></template>
+  </templates>
+  <public_template_modifications/>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
