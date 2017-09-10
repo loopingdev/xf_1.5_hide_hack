@@ -7,7 +7,7 @@ class VfcodersHH_BbCode_Formatter_BbCode_AutoLink extends XFCP_VfcodersHH_BbCode
 	  public function __construct()
 	  {
 	        $original_hide_tags = VfcodersHH_Helper_Tags::$_originalhidetags;
-			$this->_disableAutoLink = array_merge($this->_disableAutoLink, $original_hide_tags); 
+			//$this->_disableAutoLink = array_merge($this->_disableAutoLink, $original_hide_tags); 
 										 
 			parent::__construct();							 
 	  }
