@@ -342,7 +342,6 @@ class VfcodersHH_Helper_Parse
 	   */
 	  public function hasLikedThisPost($postId = 0, $userId = 0)
 	  {
-        var_dump($this->_post['like_users']);
 
 	      if (isset($this->_post['like_users']) && $this->_post['like_users'] == true)
 	          return true;
