@@ -50,7 +50,7 @@ class VfcodersHH_ControllerPublic_Thread extends XFCP_VfcodersHH_ControllerPubli
 		      foreach ($response->params['posts'] AS &$post)
 			  {
 			       $post['message'] = $parser->parse_hidetags($post['message'], $response->params['forum']['node_id'], $post['thread_id'], 
-				                      $post['user_id'], $post['post_id'], $this->_getAllLikes($post['post_id']));
+				                      $post['user_id'], $post['post_id'], $this->_getUserLikedPost($post['post_id']));
 			  }
 		  }
 		  return $response;
